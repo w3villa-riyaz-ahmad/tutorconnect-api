@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      background: white;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .header h1 {
+      color: #4f46e5;
+      font-size: 28px;
+      margin: 0;
+    }
+    .header p {
+      color: #6b7280;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+    .content h2 {
+      color: #1f2937;
+      font-size: 20px;
+    }
+    .btn {
+      display: inline-block;
+      background-color: #4f46e5;
+      color: white !important;
+      text-decoration: none;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      margin: 20px 0;
+    }
+    .btn:hover {
+      background-color: #4338ca;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #9ca3af;
+      font-size: 12px;
+    }
+    .note {
+      background: #f9fafb;
+      border-radius: 8px;
+      padding: 15px;
+      font-size: 13px;
+      color: #6b7280;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>TutorConnect</h1>
+      <p>1-on-1 Tutoring Platform</p>
+    </div>
+
+    <div class="content">
+      <h2>Welcome, <%= @user.first_name %>! 👋</h2>
+
+      <p>Thanks for signing up for TutorConnect. To get started, please verify your email address by clicking the button below:</p>
+
+      <div style="text-align: center;">
+        <a href="<%= @verification_url %>" class="btn">Verify My Email</a>
+      </div>
+
+      <div class="note">
+        <strong>Note:</strong> This link will expire in 24 hours. If you didn't create a TutorConnect account, you can safely ignore this email.
+      </div>
+
+      <p style="margin-top: 20px; font-size: 13px; color: #6b7280;">
+        If the button doesn't work, copy and paste this link into your browser:<br>
+        <a href="<%= @verification_url %>" style="color: #4f46e5; word-break: break-all;"><%= @verification_url %></a>
+      </p>
+    </div>
+
+    <div class="footer">
+      <p>&copy; 2026 TutorConnect. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>
