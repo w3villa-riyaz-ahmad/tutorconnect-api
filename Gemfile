@@ -12,7 +12,7 @@ gem "bcrypt", "~> 3.1"
 gem "jwt", "~> 2.7"
 gem "omniauth", "~> 2.1"
 gem "omniauth-google-oauth2"
-gem "omniauth-facebook"
+gem "omniauth-github", "~> 2.0"
 gem "omniauth-rails_csrf_protection"
 
 # Background Jobs (will add sidekiq in Phase 3)

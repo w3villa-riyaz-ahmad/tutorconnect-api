@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       post "signup",              to: "authentication#signup"
       post "login",               to: "authentication#login"
       post "social",              to: "authentication#social"
+      post "github_callback",     to: "authentication#github_callback"
       get  "verify_email",        to: "authentication#verify_email"
       post "resend_verification", to: "authentication#resend_verification"
       post "refresh",             to: "authentication#refresh"
