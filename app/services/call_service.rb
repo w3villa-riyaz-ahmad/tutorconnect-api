@@ -15,6 +15,12 @@ class CallService
 
     room_id = generate_room_id
 
+    # Video calls use Jitsi Meet — rooms auto-create when participants join
+    # No API key or external service needed
+    jitsi_domain = ENV.fetch("JITSI_DOMAIN", "meet.ffmuc.net")
+    video_room_url = "https://#{jitsi_domain}/#{room_id}"
+    Rails.logger.info "[Video] Jitsi room URL: #{video_room_url}"
+
     ActiveRecord::Base.transaction do
       # Mark teacher as busy
       teacher.update!(tutor_status: :busy)
@@ -26,7 +32,8 @@ class CallService
         room_id: room_id,
         status: :active,
         started_at: Time.current,
-        last_heartbeat: Time.current
+        last_heartbeat: Time.current,
+        video_room_url: video_room_url
       )
 
       call
@@ -100,7 +107,7 @@ class CallService
   end
 
   def self.generate_room_id
-    "room_#{SecureRandom.hex(8)}_#{Time.current.to_i}"
+    "tc-#{SecureRandom.hex(6)}-#{Time.current.to_i}"
   end
 
   private_class_method :generate_room_id

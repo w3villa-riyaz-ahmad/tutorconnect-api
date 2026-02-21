@@ -13,11 +13,14 @@ module Api
 
       render json: {
         message: "Call started successfully",
-        call: call_response(call)
+        call: call_response(call),
+        video: video_info(call, current_user)
       }, status: :created
 
     rescue CallService::CallError => e
       render json: { error: e.message }, status: :unprocessable_entity
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: "Teacher not found" }, status: :not_found
     end
 
     # POST /api/calls/end_call — either participant ends the call
@@ -56,14 +59,15 @@ module Api
       render json: { error: e.message }, status: :unprocessable_entity
     end
 
-    # GET /api/calls/active — get current active call for the user
+    # GET /api/calls/active — get current active call for the user (used on page load/refresh)
     def active
       call = find_active_call
 
       if call
         render json: {
           has_active_call: true,
-          call: call_response(call)
+          call: call_response(call),
+          video: video_info(call, current_user)
         }
       else
         render json: { has_active_call: false, call: nil }
@@ -123,6 +127,17 @@ module Api
         ended_at: call.ended_at,
         duration: CallService.call_duration(call),
         last_heartbeat: call.last_heartbeat
+      }
+    end
+
+    # Return video room info (Jitsi Meet — free, no API key needed)
+    def video_info(call, user)
+      jitsi_domain = ENV.fetch("JITSI_DOMAIN", "meet.ffmuc.net")
+      {
+        room_url: call.video_room_url || "https://#{jitsi_domain}/#{call.room_id}",
+        room_name: call.room_id,
+        domain: jitsi_domain,
+        user_name: user.full_name
       }
     end
   end

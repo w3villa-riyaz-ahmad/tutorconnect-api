@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_02_07_115837) do
+ActiveRecord::Schema[7.2].define(version: 2026_02_20_130911) do
   create_table "calls", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "student_id", null: false
     t.bigint "teacher_id", null: false
@@ -21,6 +21,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_07_115837) do
     t.datetime "last_heartbeat"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "video_room_url"
     t.index ["last_heartbeat"], name: "index_calls_on_last_heartbeat"
     t.index ["room_id"], name: "index_calls_on_room_id", unique: true
     t.index ["status"], name: "index_calls_on_status"
