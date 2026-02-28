@@ -28,6 +28,9 @@ test:
 
 production:
   <<: *default
-  database: tutorconnect_prod
+  database: <%= ENV.fetch("DB_NAME", "tutorconnect_prod") %>
   username: <%= ENV["DB_USERNAME"] %>
   password: <%= ENV["DB_PASSWORD"] %>
+  host: <%= ENV.fetch("DB_HOST", "localhost") %>
+  port: <%= ENV.fetch("DB_PORT", 3306) %>
+  ssl_mode: :required
