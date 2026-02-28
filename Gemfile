@@ -20,7 +20,7 @@ gem "omniauth-rails_csrf_protection"
 # gem "sidekiq-cron", "~> 1.12"
 
 # Payments
-gem "stripe", "~> 10.0"
+gem "stripe", "~> 18.4"
 
 # Image Upload
 gem "cloudinary", "~> 1.28"
