@@ -1,0 +1,13 @@
+TutorConnect - Email Verification
+==================================
+
+Welcome, <%= @user.first_name %>!
+
+Thanks for signing up for TutorConnect. To verify your email address, please visit the link below:
+
+<%= @verification_url %>
+
+This link will expire in 24 hours. If you didn't create a TutorConnect account, you can safely ignore this email.
+
+---
+(c) <%= Time.current.year %> TutorConnect. All rights reserved.

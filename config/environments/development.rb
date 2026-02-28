@@ -35,9 +35,20 @@ Rails.application.configure do
   # Make template changes take effect immediately.
   config.action_mailer.perform_caching = false
 
-  # Use letter_opener to preview emails in the browser during development
-  config.action_mailer.delivery_method = :letter_opener
+  # Use Brevo SMTP for real email delivery
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
+
+  config.action_mailer.smtp_settings = {
+    address:              ENV.fetch("BREVO_SMTP_HOST", "smtp-relay.brevo.com"),
+    port:                 ENV.fetch("BREVO_SMTP_PORT", 587).to_i,
+    user_name:            ENV["BREVO_SMTP_LOGIN"],
+    password:             ENV["BREVO_SMTP_KEY"],
+    authentication:       :plain,
+    enable_starttls_auto: true,
+    open_timeout:         10,
+    read_timeout:         10
+  }
 
   # Set localhost to be used by links generated in mailer templates.
   config.action_mailer.default_url_options = { host: "localhost", port: 4000 }

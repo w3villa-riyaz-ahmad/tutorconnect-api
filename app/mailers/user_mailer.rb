@@ -4,10 +4,16 @@ class UserMailer < ApplicationMailer
     @verification_url = "#{api_base_url}/api/auth/verify_email?token=#{user.verification_token}"
     @frontend_url = ENV.fetch("FRONTEND_URL", "http://localhost:3000")
 
+    Rails.logger.info "[Mailer] Sending verification email to #{user.email}"
+
     mail(
       to: @user.email,
-      subject: "Verify your TutorConnect account"
+      subject: "Verify your TutorConnect account",
+      reply_to: ENV.fetch("BREVO_SENDER_EMAIL", "noreply@tutorconnect.com")
     )
+  rescue StandardError => e
+    Rails.logger.error "[Mailer] Failed to send verification email to #{user.email}: #{e.message}"
+    raise e
   end
 
   private
