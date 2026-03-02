@@ -55,20 +55,13 @@ Rails.application.configure do
   # Set host to be used by links generated in mailer templates.
   config.action_mailer.default_url_options = { host: ENV.fetch("APP_HOST", "example.com") }
 
-  # Brevo SMTP for production email delivery
-  config.action_mailer.delivery_method = :smtp
+  # Brevo HTTP API for production email delivery
+  # SMTP ports (587/465/25) are blocked on Render free tier,
+  # so we use Brevo's REST API over HTTPS (port 443) instead.
+  config.action_mailer.delivery_method = :brevo_api
   config.action_mailer.perform_deliveries = true
-
-  config.action_mailer.smtp_settings = {
-    address:              ENV.fetch("BREVO_SMTP_HOST", "smtp-relay.brevo.com"),
-    port:                 ENV.fetch("BREVO_SMTP_PORT", 587).to_i,
-    user_name:            ENV["BREVO_SMTP_LOGIN"],
-    password:             ENV["BREVO_SMTP_KEY"],
-    authentication:       :plain,
-    enable_starttls_auto: true,
-    domain:               ENV.fetch("MAILER_DOMAIN", "tutorconnect.com"),
-    open_timeout:         10,
-    read_timeout:         10
+  config.action_mailer.brevo_api_settings = {
+    api_key: ENV["BREVO_API_KEY"]
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
