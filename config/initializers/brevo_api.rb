@@ -105,4 +105,8 @@ class BrevoApiDelivery
 end
 
 # Register the delivery method with Action Mailer
+# This creates the :brevo_api delivery method and the brevo_api_settings accessor
 ActionMailer::Base.add_delivery_method :brevo_api, BrevoApiDelivery
+
+# Set API key from environment after registration
+ActionMailer::Base.brevo_api_settings = { api_key: ENV["BREVO_API_KEY"] }

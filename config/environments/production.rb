@@ -60,9 +60,6 @@ Rails.application.configure do
   # so we use Brevo's REST API over HTTPS (port 443) instead.
   config.action_mailer.delivery_method = :brevo_api
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.brevo_api_settings = {
-    api_key: ENV["BREVO_API_KEY"]
-  }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
