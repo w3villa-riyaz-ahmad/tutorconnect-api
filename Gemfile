@@ -23,7 +23,7 @@ gem "omniauth-rails_csrf_protection"
 gem "stripe", "~> 10.0"
 
 # Image Upload
-gem "cloudinary", "~> 1.28"
+gem "cloudinary", "~> 2.4"
 
 # CSV Export
 gem "csv"
